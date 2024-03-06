@@ -13,7 +13,7 @@ class LRUCache(object):
         :type capacity: int
         """
         self.size = capacity
-        self.m = {}
+        self.dictionary = {}
         self.head = DoublyLinkedList(-1, -1)
         self.tail = DoublyLinkedList(-1, -1)
         self.head.next = self.tail
@@ -35,11 +35,11 @@ class LRUCache(object):
         :type key: int
         :rtype: int
         """
-        if key in self.m:
-            node = self.m[key]
+        if key in self.dictionary:
+            node = self.dictionary[key]
             self.deleteNode(node)
             self.addNode(node)
-            self.m[key] = self.head.next
+            self.dictionary[key] = self.head.next
             return self.head.next.val
         else:
             return -1
@@ -51,56 +51,41 @@ class LRUCache(object):
         :rtype: None
         """
         # print("fetching")
-        if key in self.m:
+        if key in self.dictionary:
             # print(f"found {key}")
-            node = self.m[key]
+            node = self.dictionary[key]
             node.val = value
             self.deleteNode(node)
             self.addNode(node)
-            self.m[key] = self.head.next
+            self.dictionary[key] = self.head.next
         else:
             # print(f"not found {key}")
-            if len(self.m) == self.size:
+            if len(self.dictionary) == self.size:
                 prev = self.tail.prev
                 self.deleteNode(prev)
                 node = DoublyLinkedList(key, value)
                 self.addNode(node)
-                del self.m[prev.key]
-                self.m[key] = node
+                del self.dictionary[prev.key]
+                self.dictionary[key] = node
             else:
                 node = DoublyLinkedList(key, value)
                 self.addNode(node)
-                self.m[key] = node
+                self.dictionary[key] = node
 
-    def __repr__(self):
-        temp = self.head.next
-        values = []
-        while temp != self.tail:
-            values.append(f"[{temp.key}, {temp.val}]")
-            temp = temp.next
-        values.append("None")
-        return ' -> '.join(values)
+    # def __repr__(self):
+    #     temp = self.head.next
+    #     values = []
+    #     while temp != self.tail:
+    #         values.append(f"[{temp.key}, {temp.val}]")
+    #         temp = temp.next
+    #     values.append("None")
+    #     return ' -> '.join(values)
 
-    def printReverse(self):
-        temp = self.tail.prev
-        values = []
-        while temp != self.head:
-            values.append(f"[{temp.key}, {temp.val}]")
-            temp = temp.prev
-        values.append("None")
-        return ' -> ' .join(values)
-
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
-
-if __name__ == "__main__":
-    l = LRUCache(2)
-    l.put(2, 1)
-    l.put(2, 2)
-    l.put(1, 1)
-    l.get(2)
-    print(l)
-    l.put(4, 1)
-    print(l)
+    # def printReverse(self):
+    #     temp = self.tail.prev
+    #     values = []
+    #     while temp != self.head:
+    #         values.append(f"[{temp.key}, {temp.val}]")
+    #         temp = temp.prev
+    #     values.append("None")
+    #     return ' -> ' .join(values)
