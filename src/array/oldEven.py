@@ -22,9 +22,6 @@ class Solution(object):
                 i += 1
         return maxl
 
-    def __init__(self):
-        print("Welcome to Solution class")
-
 if __name__ == "__main__":
     x = Solution()
     nums = [1, 1, 1, 2, 2, 3, 5, 7, 7, 7]

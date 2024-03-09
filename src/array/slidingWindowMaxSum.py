@@ -40,6 +40,6 @@ class Solution:
 if __name__ == "__main__":
     s = Solution()
     nums = [-1,-3,-2, -5, -6, -7]
-    # print(s.slidingWindowMaxSum(nums, 2))
-    print(s.twoSum(nums, -8))
+    print(s.slidingWindowMaxSum(nums, 2))
+    # print(s.twoSum(nums, -8))
 
